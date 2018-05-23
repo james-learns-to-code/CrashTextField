@@ -7,7 +7,7 @@ You may want to apply some restrictions on the characters entered in UITextField
 
 A miscellaneous sample when you want to restrict only numeric input is below. This code will crash.
 
-```
+```swift
 extension ViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let b = string.isEmpty || string == String(Int(string) ?? 0)
@@ -43,7 +43,7 @@ extension ViewController: UITextFieldDelegate {
 ## Countermeasure 2
 Disable the shaking to edit. Since this method will be invalid for the whole application, it is better to avoid it if possible.
 
-````swift:AppDelegate.swift
+```swift:AppDelegate.swift
 application.applicationSupportsShakeToEdit = false
 ```
 
