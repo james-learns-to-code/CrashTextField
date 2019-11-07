@@ -14,12 +14,15 @@ class ViewController: UIViewController {
 
 extension ViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let b = string.isEmpty || string == String(Int(string) ?? 0)
-        
-//        if !b {
-//            textField.undoManager?.removeAllActions()
-//        }
-        
-        return b
+        let trimmedStr = string.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard trimmedStr.count > 0 else { return true }
+        let canChange = string.count + (textField.text?.count ?? 0) < 5
+        if
+            let pasteString = UIPasteboard.general.string,
+            pasteString.hasPrefix(trimmedStr) {
+            print("Pasted")
+            textField.undoManager?.removeAllActions()
+        }
+        return canChange
     }
 }
